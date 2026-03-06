@@ -7,57 +7,58 @@
 @section('content')
 
 {{-- Filters --}}
-<form method="GET" action="{{ route('admin.applications.index') }}" class="mb-6 flex flex-wrap gap-3">
+<form method="GET" action="{{ route('admin.applications.index') }}" class="mb-6 flex flex-wrap gap-3 items-center">
     <input type="text" name="search" value="{{ request('search') }}" placeholder="Search applicant or job…"
-           class="flex-1 sm:max-w-xs px-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent">
-    <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200 transition-colors">Search</button>
+           class="flex-1 sm:max-w-xs px-4 py-2.5 border border-[#D6DDEB] rounded text-sm outline-none transition focus:border-[#4640DE]"
+           style="color:#25324B;">
+    <button type="submit" class="px-4 py-2.5 text-sm rounded border border-[#D6DDEB] transition hover:border-[#4640DE]" style="color:#515B6F;">Search</button>
     @if(request('search'))
-        <a href="{{ route('admin.applications.index') }}" class="px-4 py-2 text-sm text-gray-500 hover:text-gray-700">Clear</a>
+        <a href="{{ route('admin.applications.index') }}" class="px-3 py-2.5 text-sm" style="color:#7C8493;">Clear</a>
     @endif
-    <div class="ml-auto text-sm text-gray-500 flex items-center">{{ $applications->total() }} application{{ $applications->total() !== 1 ? 's' : '' }}</div>
+    <div class="ml-auto text-sm" style="color:#7C8493;">{{ $applications->total() }} application{{ $applications->total() !== 1 ? 's' : '' }}</div>
 </form>
 
 {{-- Table --}}
-<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+<div class="bg-white border border-[#D6DDEB] rounded-lg overflow-hidden">
     <table class="w-full text-sm">
         <thead>
-            <tr class="bg-gray-50 border-b border-gray-200 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                <th class="px-5 py-3.5">Applicant</th>
-                <th class="px-5 py-3.5 hidden sm:table-cell">Applied For</th>
-                <th class="px-5 py-3.5 hidden lg:table-cell">Resume</th>
-                <th class="px-5 py-3.5 hidden md:table-cell">Date</th>
-                <th class="px-5 py-3.5 text-right">Actions</th>
+            <tr class="border-b border-[#D6DDEB] text-left" style="background:#F8F8FD;">
+                <th class="px-5 py-3 text-xs font-semibold uppercase tracking-wider" style="color:#7C8493;">Applicant</th>
+                <th class="px-5 py-3 text-xs font-semibold uppercase tracking-wider hidden sm:table-cell" style="color:#7C8493;">Applied For</th>
+                <th class="px-5 py-3 text-xs font-semibold uppercase tracking-wider hidden lg:table-cell" style="color:#7C8493;">Resume</th>
+                <th class="px-5 py-3 text-xs font-semibold uppercase tracking-wider hidden md:table-cell" style="color:#7C8493;">Date</th>
+                <th class="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-right" style="color:#7C8493;">Actions</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100">
+        <tbody class="divide-y divide-[#F8F8FD]">
             @forelse($applications as $app)
-                <tr class="hover:bg-gray-50 transition-colors">
+                <tr class="transition hover:bg-[#F8F8FD]">
                     <td class="px-5 py-4">
-                        <p class="font-medium text-gray-900">{{ $app->name }}</p>
-                        <p class="text-xs text-gray-400 mt-0.5">{{ $app->email }}</p>
+                        <p class="font-medium" style="color:#25324B;">{{ $app->name }}</p>
+                        <p class="text-xs mt-0.5" style="color:#7C8493;">{{ $app->email }}</p>
                     </td>
-                    <td class="px-5 py-4 hidden sm:table-cell text-gray-600">
+                    <td class="px-5 py-4 hidden sm:table-cell" style="color:#515B6F;">
                         {{ $app->job->title ?? '—' }}
-                        <span class="block text-xs text-gray-400">{{ $app->job->company ?? '' }}</span>
+                        <span class="block text-xs" style="color:#7C8493;">{{ $app->job->company ?? '' }}</span>
                     </td>
                     <td class="px-5 py-4 hidden lg:table-cell">
                         <a href="{{ $app->resume_link }}" target="_blank" rel="noopener"
-                           class="text-xs text-brand font-medium hover:underline flex items-center gap-1">
+                           class="text-xs font-medium hover:underline flex items-center gap-1 transition hover:opacity-70" style="color:#4640DE;">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                             </svg>
                             View Resume
                         </a>
                     </td>
-                    <td class="px-5 py-4 hidden md:table-cell text-xs text-gray-400">{{ $app->created_at->format('M d, Y') }}</td>
+                    <td class="px-5 py-4 hidden md:table-cell text-xs" style="color:#7C8493;">{{ $app->created_at->format('M d, Y') }}</td>
                     <td class="px-5 py-4 text-right">
                         <a href="{{ route('admin.applications.show', $app->id) }}"
-                           class="text-xs text-brand font-medium hover:underline">View</a>
+                           class="text-xs font-semibold transition hover:opacity-70" style="color:#4640DE;">View</a>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="px-5 py-10 text-center text-sm text-gray-400">No applications yet.</td>
+                    <td colspan="5" class="px-5 py-12 text-center text-sm" style="color:#7C8493;">No applications yet.</td>
                 </tr>
             @endforelse
         </tbody>
