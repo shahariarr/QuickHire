@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -17,6 +18,6 @@ class HomeController extends Controller
         $totalJobs         = Job::count();
         $totalApplications = \App\Models\Application::count();
 
-        return view('welcome', compact('latestJobs', 'totalJobs', 'totalApplications'));
+        return Inertia::render('Welcome', compact('latestJobs', 'totalJobs', 'totalApplications'));
     }
 }

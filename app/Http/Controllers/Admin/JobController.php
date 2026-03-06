@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class JobController extends Controller
 {
@@ -22,12 +23,15 @@ class JobController extends Controller
 
         $jobs = $query->paginate(15);
 
-        return view('admin.jobs.index', compact('jobs'));
+        return Inertia::render('Admin/Jobs/Index', [
+            'jobs'    => $jobs,
+            'filters' => $request->only(['search']),
+        ]);
     }
 
     public function create()
     {
-        return view('admin.jobs.create');
+        return Inertia::render('Admin/Jobs/Create');
     }
 
     public function store(Request $request)
@@ -37,6 +41,7 @@ class JobController extends Controller
             'company'     => 'required|string|max:255',
             'location'    => 'required|string|max:255',
             'category'    => 'required|string|max:100',
+            'type'        => 'nullable|string|max:50',
             'description' => 'required|string|min:20',
         ]);
 
@@ -50,7 +55,7 @@ class JobController extends Controller
     {
         $job = Job::findOrFail($id);
 
-        return view('admin.jobs.edit', compact('job'));
+        return Inertia::render('Admin/Jobs/Edit', compact('job'));
     }
 
     public function update(Request $request, int $id)
@@ -62,6 +67,7 @@ class JobController extends Controller
             'company'     => 'required|string|max:255',
             'location'    => 'required|string|max:255',
             'category'    => 'required|string|max:100',
+            'type'        => 'nullable|string|max:50',
             'description' => 'required|string|min:20',
         ]);
 

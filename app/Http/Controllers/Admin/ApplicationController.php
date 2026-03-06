@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ApplicationController extends Controller
 {
@@ -23,13 +24,16 @@ class ApplicationController extends Controller
 
         $applications = $query->paginate(20);
 
-        return view('admin.applications.index', compact('applications'));
+        return Inertia::render('Admin/Applications/Index', [
+            'applications' => $applications,
+            'filters'      => $request->only(['search']),
+        ]);
     }
 
     public function show(int $id)
     {
         $application = Application::with('job')->findOrFail($id);
 
-        return view('admin.applications.show', compact('application'));
+        return Inertia::render('Admin/Applications/Show', compact('application'));
     }
 }

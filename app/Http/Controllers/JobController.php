@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class JobController extends Controller
 {
@@ -28,9 +29,16 @@ class JobController extends Controller
             $query->where('category', $request->category);
         }
 
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
         $jobs = $query->paginate(12);
 
-        return view('jobs.index', compact('jobs'));
+        return Inertia::render('Jobs/Index', [
+            'jobs'    => $jobs,
+            'filters' => $request->only(['search', 'location', 'category', 'type']),
+        ]);
     }
 
     public function show(int $id)
@@ -43,14 +51,14 @@ class JobController extends Controller
             ->take(4)
             ->get();
 
-        return view('jobs.show', compact('job', 'relatedJobs'));
+        return Inertia::render('Jobs/Show', compact('job', 'relatedJobs'));
     }
 
     public function apply(int $id)
     {
         $job = Job::findOrFail($id);
 
-        return view('jobs.apply', compact('job'));
+        return Inertia::render('Jobs/Apply', compact('job'));
     }
 
     public function storeApplication(Request $request, int $id)

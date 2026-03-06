@@ -14,6 +14,7 @@ class Job extends Model
         'company',
         'location',
         'category',
+        'type',
         'description',
     ];
 

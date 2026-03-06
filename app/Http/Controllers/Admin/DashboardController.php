@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use App\Models\Application;
 use Illuminate\Support\Carbon;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         $recentJobs         = Job::latest()->take(5)->get();
         $recentApplications = Application::with('job')->latest()->take(5)->get();
 
-        return view('admin.dashboard', compact(
+        return Inertia::render('Admin/Dashboard', compact(
             'totalJobs', 'totalApplications', 'jobsThisMonth', 'appsThisMonth',
             'recentJobs', 'recentApplications'
         ));

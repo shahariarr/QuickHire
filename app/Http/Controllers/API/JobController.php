@@ -38,11 +38,12 @@ class JobController extends Controller
             $query->where('location', 'like', "%{$request->location}%");
         }
 
-        $jobs = $query->latest()->get();
+        $jobs = $query->withCount('applications')->latest()->get();
 
         return response()->json([
             'success' => true,
-            'data' => $jobs,
+            'data'    => $jobs,
+            'total'   => $jobs->count(),
         ], 200);
     }
 
