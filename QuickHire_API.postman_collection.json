@@ -1,0 +1,228 @@
+{
+  "info": {
+    "name": "QuickHire API",
+    "description": "Complete API collection for QuickHire Job Board Application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Get All Jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Jobs with Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs?search=developer",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "developer"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Jobs by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs?category=Software Development",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Software Development"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Jobs by Location",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs?location=Dhaka",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs"],
+              "query": [
+                {
+                  "key": "location",
+                  "value": "Dhaka"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Jobs with Multiple Filters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs?search=developer&category=Software Development&location=Dhaka",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "developer"
+                },
+                {
+                  "key": "category",
+                  "value": "Software Development"
+                },
+                {
+                  "key": "location",
+                  "value": "Dhaka"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Job",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Mobile App Developer\",\n  \"company\": \"Mobile Solutions Ltd\",\n  \"location\": \"Remote\",\n  \"category\": \"Software Development\",\n  \"description\": \"We are hiring a talented mobile app developer with experience in React Native or Flutter. You will be responsible for building cross-platform mobile applications with excellent user experiences.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/jobs",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Job",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8000/api/jobs/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "jobs", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applications",
+      "item": [
+        {
+          "name": "Submit Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"job_id\": 1,\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"resume_link\": \"https://drive.google.com/file/d/1234567890/view\",\n  \"cover_note\": \"I am very excited to apply for this position. With over 5 years of experience in full-stack development, I have worked with React, Node.js, and modern web technologies. I am confident that I can contribute significantly to your team.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/applications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "applications"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Application - Test Validation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"job_id\": 999,\n  \"name\": \"Test User\",\n  \"email\": \"invalid-email\",\n  \"resume_link\": \"not-a-url\",\n  \"cover_note\": \"\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/applications",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "applications"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
